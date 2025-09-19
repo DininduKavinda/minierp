@@ -3,6 +3,7 @@
 @section('title', 'Sample Page - Modernize Free')
 
 @section('content')
+
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         <div
@@ -16,26 +17,30 @@
                                     <img src="../assets/images/logos/dark-logo.svg" width="180" alt="">
                                 </a>
                                 <p class="text-center">Your Social Campaigns</p>
-                                <form>
+                                <form id="general-form">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Username</label>
+                                        <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name"
-                                            aria-describedby="nameHelp">
+                                            aria-describedby="textHelp">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email"
+                                            aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <input type="password" class="form-control" id="password">
                                     </div>
-                                   
-                                    <button  class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
-                                        In</button>
-                                    
+                                    <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
+                                        Up</a>
+
                                 </form>
+
                                 <div class="d-flex align-items-center justify-content-center">
-                                        <p class="fs-4 mb-0 fw-bold">New to System?</p>
-                                        <a class="text-primary fw-bold ms-2" href="{{ route('register') }}">Create an
-                                            account</a>
-                                    </div>
+                                    <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
+                                    <a class="text-primary fw-bold ms-2" href="{{ route('login') }}">Sign In</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -43,4 +48,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+
+    </script>
 @endsection

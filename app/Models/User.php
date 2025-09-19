@@ -50,4 +50,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
     }
+
+    public function createUserProfile($name, $email, $password)
+    {
+        $user = User::firstOrNew(['name' => $name]);
+        $user->name = $name;
+        $user->email = $email;
+        $user->password = $password;
+        $user->save();
+
+        return $user;
+    }
 }
