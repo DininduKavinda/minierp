@@ -1,19 +1,24 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('Home')->middleware('auth');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware(['guest']);
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/register', [AuthController::class, 'register'])->name('register')->middleware(['guest']);
+    Route::post('/login', [AuthController::class, 'postLogin'])->name('auth.login');
+    Route::post('/register', [AuthController::class, 'postRegister'])->name('auth.register');
+});
 
-Route::post('/login', [AuthController::class, 'postLogin'])->name('auth.login')->middleware(['guest']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('Home');
 
-Route::post('/register', [AuthController::class, 'postRegister'])->name('auth.register')->middleware(['guest']);
+    Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware(['auth']);
-
+    Route::resource('products', ProductController::class);
+});

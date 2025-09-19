@@ -13,6 +13,9 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::whereIsActive(true)->get();
+
+        return view('products.index', ['products' => $products]);
     }
 
     /**

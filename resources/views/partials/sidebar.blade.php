@@ -29,11 +29,11 @@
           <span class="hide-menu">UI COMPONENTS</span>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link" href="{{ url('ui-buttons') }}" aria-expanded="false">
+          <a class="sidebar-link" href="{{ route('products.index') }}" aria-expanded="false">
             <span>
               <i class="ti ti-article"></i>
             </span>
-            <span class="hide-menu">Buttons</span>
+            <span class="hide-menu">Products</span>
           </a>
         </li>
       

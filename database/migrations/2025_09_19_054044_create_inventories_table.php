@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('inventories', function (Blueprint $table) {
-            $table->unassignedBigInteger('product_id');
-            $table->unassignedBigInteger('store_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('store_id');
 
             $table->id();
             $table->string('order_no');

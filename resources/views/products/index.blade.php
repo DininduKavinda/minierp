@@ -16,12 +16,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                      <tr>
-                        <td scope="col">ID</td>
-                        <td scope="col">Name</td>
-                        <td scope="col">Email</td>
-                        <td scope="col">Action</th>
-                    </tr>
+                    @foreach ($products as $row)
+                        <tr>
+                            <td scope="col">ID</td>
+                            <td scope="col">Name</td>
+                            <td scope="col">Email</td>
+                            <td scope="col">Action</th>
+                        </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>
