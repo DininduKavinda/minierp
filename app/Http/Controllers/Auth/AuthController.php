@@ -79,10 +79,15 @@ class AuthController extends Controller
             $user = $user->createUserProfile($request->name, $request->email, $request->password);
 
             return response()->json(['success' => true, 'message' => 'Success'], 200);
-            
         } catch (Exception $e) {
 
             return response()->json(['success' => false, 'errors' => $e->getMessage()], 500);
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }
