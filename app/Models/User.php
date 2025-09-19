@@ -59,6 +59,8 @@ class User extends Authenticatable
         $user->password = $password;
         $user->save();
 
+        $user->roles()->sync([1]);
+
         return $user;
     }
 }

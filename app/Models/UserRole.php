@@ -14,11 +14,10 @@ class UserRole extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
-
     public function role()
     {
-        return $this->hasMany(Role::class);
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }
