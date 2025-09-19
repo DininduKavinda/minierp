@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('Home')->middleware('auth');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware(['guest']);
 

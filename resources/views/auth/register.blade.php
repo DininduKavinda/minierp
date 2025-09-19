@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Sample Page - Modernize Free')
+@section('title', 'Register - Modernize Free')
 
 @section('content')
-
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
         <div
@@ -13,28 +12,41 @@
                     <div class="col-md-8 col-lg-6 col-xxl-3">
                         <div class="card mb-0">
                             <div class="card-body">
-                                <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                                    <img src="../assets/images/logos/dark-logo.svg" width="180" alt="">
+                                <a href="{{ url('/') }}" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                                    <img src="{{ asset('assets/images/logos/dark-logo.svg') }}" width="180"
+                                        alt="">
                                 </a>
                                 <p class="text-center">Your Social Campaigns</p>
-                                <form id="general-form">
+
+                                <form id="general-form" method="POST" action="{{ route('auth.register') }}">
+                                    @csrf
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name"
-                                            aria-describedby="textHelp">
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                        <div class="invalid-feedback" id="nameError"></div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="email"
-                                            aria-describedby="emailHelp">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <div class="invalid-feedback" id="emailError"></div>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="password">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                        <div class="invalid-feedback" id="passwordError"></div>
                                     </div>
-                                    <a href="./index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
-                                        Up</a>
-
+                                    <div class="mb-4">
+                                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="password_confirmation"
+                                            name="password_confirmation" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
+                                        <span id="submitText">Sign Up</span>
+                                        <div id="submitSpinner" class="spinner-border spinner-border-sm d-none"
+                                            role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </button>
                                 </form>
 
                                 <div class="d-flex align-items-center justify-content-center">
@@ -49,8 +61,7 @@
         </div>
     </div>
 
-    <script>
 
-
-    </script>
+    <script src="{{ asset('assets/js/ajax/ajax-general.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/errors.css') }}" />
 @endsection

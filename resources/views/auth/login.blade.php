@@ -16,19 +16,26 @@
                                     <img src="../assets/images/logos/dark-logo.svg" width="180" alt="">
                                 </a>
                                 <p class="text-center">Your Social Campaigns</p>
-                                <form>
+                                <form id="general-form" method="POST" action="{{ route('auth.login') }}">
+                                    @csrf
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="name"
-                                            aria-describedby="nameHelp">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                        <div class="invalid-feedback" id="nameError"></div>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                       <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" required>
+                                        <div class="invalid-feedback" id="passwordError"></div>
                                     </div>
                                    
-                                    <button  class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
-                                        In</button>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
+                                        <span id="submitText">Sign In</span>
+                                        <div id="submitSpinner" class="spinner-border spinner-border-sm d-none"
+                                            role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </button>
                                     
                                 </form>
                                 <div class="d-flex align-items-center justify-content-center">
@@ -43,4 +50,7 @@
             </div>
         </div>
     </div>
+    
+    <script src="{{ asset('assets/js/ajax/ajax-general.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/errors.css') }}" />
 @endsection

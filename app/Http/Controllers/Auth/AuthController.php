@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Throwable;
 
 class AuthController extends Controller
@@ -25,25 +26,32 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         //
-        $request->validate(['username' => $request->username, 'password' => $request->password]);
+        $validate = Validator::make($request->all(), [
+            'name' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validate->fails()):
+
+            return response()->json(['success' => false, 'errors' => $validate->errors()]);
+
+        endif;
 
         try {
-            $validate = Auth::attempt($request->username, $request->password);
+            $validate = Auth::attempt(['name' => $request->name, 'password' => $request->password]);
 
             if ($validate):
 
-                return redirect()->route('Home');
+                return response()->json(['success' => true, 'message' => 'Logged In Successfully!', 'redirect' => route('Home')]);
 
             else:
 
-                return $this->login();
+                return response()->json(['success' => false, 'redirect' => route('login')]);
 
             endif;
-        } catch (Throwable $th) {
+        } catch (Exception $e) {
 
-            report($th);
-
-            return $this->login();
+            return response()->json(['success' => false, 'errors' => $e->getMessage()]);
         }
     }
 
@@ -52,24 +60,28 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function postRegister(Request $request)
+    public function postRegister(Request $request, User $user)
     {
-        $request->validate([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+        $validate = Validator::make($request->all(), ([
+            'name' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|confirmed',
+            'email' => 'required|email',
+        ]));
+
+        if ($validate->fails()):
+
+            return response()->json(['success' => false, 'errors' => $validate->errors(), 'redirect' => route('login')], 422);
+
+        endif;
 
         try {
 
-            $user = User::createUserProfile($request->name, $request->email, $request->password);
+            $user = $user->createUserProfile($request->name, $request->email, $request->password);
 
-            return $this->login();
-        } catch (Throwable $th) {
+            return response()->json(['success' => true, 'message' => 'Success'], 200);
+        } catch (Exception $e) {
 
-            report($th);
-
-            return $this->register();
+            return response()->json(['success' => false, 'errors' => $e->getMessage()], 500);
         }
     }
 }
