@@ -36,7 +36,7 @@ class WelcomeEmailNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-             ->subject('Welcome to Our App 🎉')
+             ->subject('Welcome to Our App')
             ->greeting('Hello ' . $notifiable->name . ',')
             ->line('We’re excited to have you on board!')
             ->line('Your account has been created successfully.')

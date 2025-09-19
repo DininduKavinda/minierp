@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
-                    'Accept': 'application/json'
+
                 },
                 body: formData
             });
